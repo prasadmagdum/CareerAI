@@ -5,7 +5,7 @@
     min-height: 100vh;
     overflow: hidden;
     color: var(--landing-ink);
-    background: #fbfaff;
+    background: transparent;
 }
 
 .landing-header {

@@ -1,6 +1,7 @@
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import CareerChatbot from "./CareerChatbot";
 import "./Layout.css";
 import "./AppExperience.css";
 
@@ -16,6 +17,7 @@ function Layout({ children, footer = <Footer /> }) {
             </main>
 
             {footer}
+            <CareerChatbot />
         </div>
     );
 }

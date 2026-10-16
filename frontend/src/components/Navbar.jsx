@@ -75,12 +75,18 @@ function Navbar() {
                             key={path}
                             to={path}
                             end
-                            className={({ isActive }) =>
-                                `navbar-link${isActive ? " active" : ""}`
-                            }
+                            className={({ isActive }) => [
+                                "navbar-link",
+                                path === "/profile" && "navbar-profile-link",
+                                isActive && "active",
+                            ].filter(Boolean).join(" ")}
                             onClick={closeMenu}
                         >
-                            <Icon size={16} strokeWidth={1.9} />
+                            <Icon
+                                className={path === "/profile" ? "navbar-profile-icon" : undefined}
+                                size={16}
+                                strokeWidth={1.9}
+                            />
                             <span>{label}</span>
                         </NavLink>
                     ))}

@@ -6,7 +6,6 @@ import StatCard from "../components/StatCard";
 import MatchMiniCard from "../components/MatchMiniCard";
 import LoadingState from "../components/LoadingState";
 import ErrorState from "../components/ErrorState";
-import CareerChatbot from "../components/CareerChatbot";
 import Footer from "../components/Footer";
 
 import heroArtwork from "../assets/hero.png";
@@ -16,7 +15,6 @@ import "./Dashboard.css";
 function Dashboard() {
 
     const [dashboard, setDashboard] = useState({
-        profile: null,
         resumes: [],
         matches: [],
         analyses: [],
@@ -27,18 +25,9 @@ function Dashboard() {
     const [error, setError] = useState("");
 
 
-    useEffect(() => {
-        loadDashboard();
-    }, []);
-
-
     async function loadDashboard() {
 
         try {
-
-            setLoading(true);
-            setError("");
-
             const data =
                 await getDashboardData();
 
@@ -62,6 +51,9 @@ function Dashboard() {
         }
     }
 
+    useEffect(() => {
+        loadDashboard();
+    }, []);
 
     const {
         resumes,
@@ -499,7 +491,6 @@ function Dashboard() {
 
             </div>
 
-            <CareerChatbot />
         </Layout>
     );
 }

@@ -28,8 +28,8 @@
 
 /* Profile form card */
 .profile-card {
-    width: min(100%, 780px);
-    padding: 30px;
+    width: min(100%, 620px);
+    padding: 22px;
     border: 1px solid #e5eaf3;
     border-radius: 20px;
     background: #ffffff;
@@ -39,13 +39,13 @@
 .profile-card form {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 7px;
 }
 
 .profile-card label {
-    margin-top: 10px;
+    margin-top: 6px;
     color: #334155;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
 }
 
@@ -53,13 +53,13 @@
 .profile-card textarea {
     width: 100%;
     box-sizing: border-box;
-    padding: 13px 14px;
+    padding: 10px 12px;
     border: 1px solid #dbe2ee;
     border-radius: 10px;
     background: #ffffff;
     color: #172033;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13px;
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -78,7 +78,7 @@
 
 .profile-card textarea {
     resize: vertical;
-    min-height: 130px;
+    min-height: 100px;
     line-height: 1.7;
 }
 
@@ -89,14 +89,14 @@
 
 .profile-card button {
     justify-self: start;
-    min-width: 150px;
-    margin-top: 18px;
-    padding: 12px 18px;
+    min-width: 130px;
+    margin-top: 12px;
+    padding: 10px 15px;
     color: #fff;
     background: linear-gradient(135deg, #7564f0, #5746d5);
     border: 0;
     border-radius: 10px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
 }

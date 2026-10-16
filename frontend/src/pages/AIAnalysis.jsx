@@ -8,8 +8,65 @@ import { getMyMatches } from "../services/jobService";
 import LoadingState from "../components/LoadingState";
 import ErrorState from "../components/ErrorState";
 import InsightList from "../components/InsightList";
-import JobReadiness from "../components/JobReadiness";
 import "./AIAnalysis.css";
+
+function getSkillGapItems(analysis) {
+    const explanations = Array.isArray(analysis?.skill_gap_explanation)
+        ? analysis.skill_gap_explanation
+        : [];
+
+    const items = explanations.length > 0
+        ? explanations.map((item, index) => {
+            const detail = item && typeof item === "object" ? item : {};
+
+            return {
+                id: `explanation-${index}`,
+                category: detail.category || detail.type || "Guidance",
+                skill: detail.skill || detail.name || "Skill gap explanation",
+                explanation: typeof item === "string"
+                    ? item
+                    : detail.explanation ||
+                      detail.reason ||
+                      detail.description ||
+                      detail.text ||
+                      "",
+                action: detail.action || detail.recommendation || "",
+            };
+        })
+        : [
+            ...(Array.isArray(analysis?.critical_skill_gaps)
+                ? analysis.critical_skill_gaps.map((gap) => ({
+                    gap,
+                    category: "Required skill",
+                }))
+                : []),
+            ...(Array.isArray(analysis?.preferred_skill_gaps)
+                ? analysis.preferred_skill_gaps.map((gap) => ({
+                    gap,
+                    category: "Preferred skill",
+                }))
+                : []),
+        ].map(({ gap, category }, index) => {
+            const detail = gap && typeof gap === "object" ? gap : {};
+
+            return {
+                id: `gap-${index}`,
+                category,
+                skill: typeof gap === "string"
+                    ? gap
+                    : detail.skill || detail.name || "Skill gap",
+                explanation:
+                    detail.reason ||
+                    detail.explanation ||
+                    detail.description ||
+                    detail.text ||
+                    "",
+                action: detail.action || detail.recommendation || "",
+            };
+        });
+
+    return items.filter((item) => item.explanation || item.action || item.skill);
+}
 
 function AIAnalysis() {
     const [matches, setMatches] = useState([]);
@@ -115,6 +172,8 @@ function AIAnalysis() {
             );
         });
     }, [analyses, selectedMatchId]);
+
+    const skillGapItems = getSkillGapItems(analysis);
 
     useEffect(() => {
         setAnalysis(existingAnalysis || null);
@@ -223,7 +282,7 @@ function AIAnalysis() {
             {/* Success */}
             {success && (
                 <div className="success-message">
-                    ✅ {success}
+                    {success}
                 </div>
             )}
 
@@ -396,36 +455,6 @@ function AIAnalysis() {
                     {/* Analysis */}
                     {analysis ? (
                         <div className="ai-analysis-content">
-
-                            {/* Summary */}
-                            <div className="ai-summary-card">
-                                <div className="ai-summary-icon">
-                                    AI
-                                </div>
-
-                                <div>
-                                    <span className="section-eyebrow">
-                                        AI Career Summary
-                                    </span>
-
-                                    <h2>
-                                        Your Career Fit
-                                    </h2>
-
-                                    <p>
-                                        {analysis.summary ||
-                                            "No summary available."}
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Readiness */}
-                            <JobReadiness
-                                readiness={
-                                    analysis.job_readiness
-                                }
-                            />
-
                             {/* Insights */}
                             <div className="ai-insights-grid">
 
@@ -485,76 +514,60 @@ function AIAnalysis() {
 
                             </div>
 
-                            {/* Skill Gap Explanation */}
-                            <div className="skill-gap-explanation-card">
-                                <div className="section-card-header">
-                                    <div>
-                                        <span className="section-eyebrow">
-                                            Personalized Guidance
-                                        </span>
+                            {/* Skill gap guidance */}
+                            {skillGapItems.length > 0 && (
+                                <section
+                                    className="skill-gap-explanation-card"
+                                    aria-labelledby="skill-gap-guidance-title"
+                                >
+                                    <div className="section-card-header">
+                                        <div>
+                                            <span className="section-eyebrow">
+                                                Turn insights into action
+                                            </span>
 
-                                        <h2>
-                                            📚 Skill Gap Explanation
-                                        </h2>
+                                            <h2 id="skill-gap-guidance-title">
+                                                Skill Gap Guidance
+                                            </h2>
+
+                                            <p>
+                                                Understand why these skills matter and choose a practical next step.
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                {(
-                                    analysis.skill_gap_explanation ||
-                                    []
-                                ).length === 0 ? (
-                                    <p>
-                                        No skill gap
-                                        explanation available.
-                                    </p>
-                                ) : (
                                     <div className="skill-gap-list">
-                                        {analysis.skill_gap_explanation.map(
-                                            (
-                                                item,
-                                                index
-                                            ) => (
-                                                <div
-                                                    key={
-                                                        index
-                                                    }
-                                                    className="skill-gap-item"
-                                                >
-                                                    {typeof item ===
-                                                    "object" ? (
-                                                        <>
-                                                            <h3>
-                                                                {item.skill ||
-                                                                    item.name ||
-                                                                    "Skill Gap"}
-                                                            </h3>
-
-                                                            <p>
-                                                                {item.explanation ||
-                                                                    item.reason ||
-                                                                    item.description ||
-                                                                    JSON.stringify(
-                                                                        item
-                                                                    )}
-                                                            </p>
-                                                        </>
-                                                    ) : (
-                                                        <p>
-                                                            {item}
-                                                        </p>
-                                                    )}
+                                        {skillGapItems.map((item) => (
+                                            <article
+                                                key={item.id}
+                                                className="skill-gap-item"
+                                            >
+                                                <div className="skill-gap-item-header">
+                                                    <h3>{item.skill}</h3>
+                                                    <span>{item.category}</span>
                                                 </div>
-                                            )
-                                        )}
+
+                                                {item.explanation && (
+                                                    <p>{item.explanation}</p>
+                                                )}
+
+                                                {item.action && (
+                                                    <div className="skill-gap-action">
+                                                        <strong>Suggested next step</strong>
+                                                        <p>{item.action}</p>
+                                                    </div>
+                                                )}
+                                            </article>
+                                        ))}
                                     </div>
-                                )}
-                            </div>
+                                </section>
+                            )}
 
                         </div>
                     ) : (
                         <div className="empty-state-card">
                             <div className="empty-state-icon">
-                                ✨
+                                AI
                             </div>
 
                             <h2>

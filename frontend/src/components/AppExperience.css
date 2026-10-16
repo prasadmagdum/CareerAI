@@ -1,22 +1,37 @@
 .app-layout {
     position: relative;
     isolation: isolate;
-    background:
-        radial-gradient(ellipse at 12% 12%, rgb(224 219 255 / 38%), transparent 27rem),
-        radial-gradient(ellipse at 92% 46%, rgb(220 235 255 / 30%), transparent 30rem),
-        #f6f6fc;
+    background: transparent;
 }
 
-.app-layout::before {
+.app-layout::before,
+.app-layout::after {
     position: fixed;
     z-index: -1;
     inset: 0;
     content: "";
+    pointer-events: none;
+}
+
+.app-layout::before {
     background:
+        radial-gradient(ellipse at 12% 18%, rgb(119 105 255 / 17%), transparent 38%),
+        radial-gradient(ellipse at 88% 62%, rgb(61 195 255 / 14%), transparent 34%),
+        radial-gradient(ellipse at 42% 100%, rgb(183 139 255 / 12%), transparent 42%),
         radial-gradient(circle at 84% 18%, rgb(151 132 255 / 10%), transparent 15rem),
         radial-gradient(circle at 16% 76%, rgb(88 206 183 / 7%), transparent 18rem);
-    animation: app-atmosphere 18s ease-in-out infinite alternate;
-    pointer-events: none;
+    background-size: 100% 100%;
+    animation: app-atmosphere 24s ease-in-out infinite alternate;
+}
+
+.app-layout::after {
+    background-image:
+        linear-gradient(rgb(109 99 214 / 4%) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(109 99 214 / 4%) 1px, transparent 1px),
+        radial-gradient(circle, rgb(101 88 211 / 12%) 1px, transparent 1.5px);
+    background-size: 54px 54px, 54px 54px, 18px 18px;
+    opacity: 0.58;
+    animation: app-grid-drift 32s ease-in-out infinite alternate;
 }
 
 .dashboard-welcome,
@@ -30,13 +45,37 @@
     animation: app-header-enter .55s cubic-bezier(.2, .7, .2, 1) both;
 }
 
+.resumes-header,
+.jobs-header,
+.profile-page .page-header,
+.interview-page .page-header {
+    overflow: hidden;
+    padding: 22px 24px;
+    background:
+        radial-gradient(ellipse at 94% 20%, rgb(150 132 255 / 13%), transparent 35%),
+        linear-gradient(115deg, rgb(255 255 255 / 72%), rgb(248 247 255 / 62%));
+    border: 1px solid rgb(222 218 246 / 78%);
+    border-radius: 18px;
+    box-shadow: 0 12px 34px rgb(55 45 130 / 5%);
+    backdrop-filter: blur(12px);
+}
+
+.ai-analysis-header {
+    background:
+        radial-gradient(ellipse at 83% 50%, rgb(154 133 255 / 24%), transparent 36%),
+        linear-gradient(115deg, rgb(255 255 255 / 82%), rgb(245 242 255 / 78%));
+    border-color: rgb(222 218 246 / 85%);
+    box-shadow: 0 16px 42px rgb(55 45 130 / 8%);
+    backdrop-filter: blur(14px);
+}
+
 .dashboard-welcome::after,
 .resumes-header::after,
 .jobs-header::after,
 .profile-page .page-header::after,
 .interview-page .page-header::after {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     top: 50%;
     right: 5%;
     width: 150px;
@@ -56,7 +95,7 @@
 .profile-page .page-header::before,
 .interview-page .page-header::before {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     top: 50%;
     right: calc(5% + 43px);
     width: 64px;
@@ -69,11 +108,20 @@
     pointer-events: none;
 }
 
+.resumes-header > *,
+.jobs-header > *,
+.profile-page .page-header > *,
+.interview-page .page-header > * {
+    position: relative;
+    z-index: 1;
+}
+
 .dashboard-welcome h1,
 .resumes-header h1,
 .jobs-header h1,
 .profile-page .page-header h1,
-.interview-page .page-header h1 {
+.interview-page .page-header h1,
+.ai-analysis-title {
     background: linear-gradient(100deg, #292643 10%, #51449f 78%, #6254bc);
     background-clip: text;
     -webkit-background-clip: text;
@@ -83,16 +131,23 @@
 .dashboard-card,
 .upload-card,
 .resume-list-card,
+.resume-card,
 .job-create-card,
 .match-control-card,
 .matches-history-card,
+.job-card,
+.jobs-search-panel,
 .interview-selector,
 .interview-section,
+.interview-intro,
 .profile-card,
 .ai-control-card,
 .selected-match-summary,
-.ai-summary-card,
-.skill-gap-explanation-card {
+.skill-gap-explanation-card,
+.empty-state-card,
+.landing-showcase,
+.landing-ai-feature,
+.landing-step-card {
     animation: app-card-enter .5s cubic-bezier(.2, .7, .2, 1) both;
     transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
 }
@@ -100,18 +155,88 @@
 .dashboard-card:hover,
 .upload-card:hover,
 .resume-list-card:hover,
+.resume-card:hover,
 .job-create-card:hover,
 .match-control-card:hover,
 .matches-history-card:hover,
+.job-card:hover,
 .interview-selector:hover,
 .interview-section:hover,
+.interview-intro:hover,
 .profile-card:hover,
 .ai-control-card:hover,
 .selected-match-summary:hover,
-.ai-summary-card:hover,
-.skill-gap-explanation-card:hover {
+.skill-gap-explanation-card:hover,
+.empty-state-card:hover,
+.landing-showcase:hover,
+.landing-ai-feature:hover,
+.landing-step-card:hover {
+    transform: translateY(-3px);
     border-color: #ded9f7;
-    box-shadow: 0 17px 42px rgb(37 36 64 / 8%);
+    box-shadow: 0 18px 44px rgb(55 45 130 / 10%);
+}
+
+.upload-card,
+.resume-list-card,
+.resume-card,
+.job-create-card,
+.match-control-card,
+.matches-history-card,
+.job-card,
+.interview-selector,
+.interview-section,
+.interview-intro,
+.profile-card,
+.ai-control-card,
+.selected-match-summary,
+.skill-gap-explanation-card,
+.empty-state-card {
+    background-color: rgb(255 255 255 / 84%);
+    backdrop-filter: blur(14px);
+}
+
+.app-navbar {
+    background: rgb(255 255 255 / 82%);
+    border-bottom-color: rgb(221 218 244 / 82%);
+    box-shadow: 0 8px 28px rgb(48 39 111 / 6%);
+}
+
+.app-footer {
+    position: relative;
+    z-index: 1;
+    background: rgb(255 255 255 / 68%);
+    border-top-color: rgb(221 218 244 / 82%);
+    backdrop-filter: blur(14px);
+}
+
+.app-navbar::after {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 1px;
+    content: "";
+    background: linear-gradient(90deg, transparent, rgb(126 106 238 / 60%), rgb(69 198 218 / 52%), transparent);
+    background-size: 200% 100%;
+    animation: app-nav-energy 8s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.navbar-brand-icon {
+    box-shadow: 0 0 0 4px rgb(119 99 235 / 8%), 0 7px 20px rgb(99 91 255 / 25%);
+    animation: app-brand-glow 4s ease-in-out infinite alternate;
+}
+
+.navbar-link.active {
+    box-shadow: inset 0 0 0 1px rgb(115 96 226 / 8%);
+}
+
+.landing-showcase,
+.landing-step-card,
+.landing-ai-feature {
+    border-color: rgb(255 255 255 / 82%);
+    box-shadow: 0 14px 38px rgb(55 45 130 / 7%);
+    backdrop-filter: blur(14px);
 }
 
 .app-layout .main-content-inner {
@@ -119,8 +244,23 @@
 }
 
 @keyframes app-atmosphere {
-    from { opacity: .55; transform: scale(1); }
-    to { opacity: 1; transform: scale(1.04); }
+    from { background-position: 0% 0%; filter: hue-rotate(0deg); }
+    to { background-position: 100% 100%; filter: hue-rotate(12deg); }
+}
+
+@keyframes app-grid-drift {
+    from { background-position: 0 0, 0 0, 0 0; opacity: .42; }
+    to { background-position: 22px 16px, -18px 14px, 9px -12px; opacity: .68; }
+}
+
+@keyframes app-nav-energy {
+    from { background-position: 0% 50%; opacity: .55; }
+    to { background-position: 100% 50%; opacity: 1; }
+}
+
+@keyframes app-brand-glow {
+    from { box-shadow: 0 0 0 3px rgb(119 99 235 / 7%), 0 6px 16px rgb(99 91 255 / 18%); }
+    to { box-shadow: 0 0 0 5px rgb(119 99 235 / 12%), 0 8px 23px rgb(99 91 255 / 32%); }
 }
 
 @keyframes app-header-enter {
@@ -148,6 +288,14 @@
 }
 
 @media (max-width: 760px) {
+    .resumes-header,
+    .jobs-header,
+    .profile-page .page-header,
+    .interview-page .page-header {
+        padding: 18px;
+        border-radius: 15px;
+    }
+
     .dashboard-welcome::after,
     .resumes-header::after,
     .jobs-header::after,
@@ -168,10 +316,35 @@
         width: 49px;
         height: 49px;
     }
+
+    .dashboard-card:hover,
+    .upload-card:hover,
+    .resume-list-card:hover,
+    .resume-card:hover,
+    .job-create-card:hover,
+    .match-control-card:hover,
+    .matches-history-card:hover,
+    .job-card:hover,
+    .interview-selector:hover,
+    .interview-section:hover,
+    .interview-intro:hover,
+    .profile-card:hover,
+    .ai-control-card:hover,
+    .selected-match-summary:hover,
+    .skill-gap-explanation-card:hover,
+    .empty-state-card:hover,
+    .landing-showcase:hover,
+    .landing-ai-feature:hover,
+    .landing-step-card:hover {
+        transform: none;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .app-layout::before,
+    .app-layout::after,
+    .app-navbar::after,
+    .navbar-brand-icon,
     .dashboard-welcome,
     .resumes-header,
     .jobs-header,
@@ -192,16 +365,23 @@
     .dashboard-card,
     .upload-card,
     .resume-list-card,
+    .resume-card,
     .job-create-card,
     .match-control-card,
     .matches-history-card,
+    .job-card,
+    .jobs-search-panel,
     .interview-selector,
     .interview-section,
+    .interview-intro,
     .profile-card,
     .ai-control-card,
     .selected-match-summary,
-    .ai-summary-card,
-    .skill-gap-explanation-card {
+    .skill-gap-explanation-card,
+    .empty-state-card,
+    .landing-showcase,
+    .landing-ai-feature,
+    .landing-step-card {
         animation: none;
         transition: none;
     }

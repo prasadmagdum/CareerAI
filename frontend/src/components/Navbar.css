@@ -80,6 +80,28 @@
     background: #efedff;
 }
 
+.navbar-profile-link {
+    gap: 6px;
+}
+
+.navbar-profile-icon {
+    box-sizing: content-box;
+    width: 14px;
+    height: 14px;
+    padding: 4px;
+    color: #6354d8;
+    background: #efedff;
+    border: 1px solid #e3defe;
+    border-radius: 50%;
+}
+
+.navbar-profile-link:hover .navbar-profile-icon,
+.navbar-profile-link.active .navbar-profile-icon {
+    color: #fff;
+    background: linear-gradient(135deg, #7867f0, #5746d5);
+    border-color: transparent;
+}
+
 .navbar-logout {
     display: inline-flex;
     flex: 0 0 auto;
