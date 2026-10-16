@@ -1,0 +1,51 @@
+
+/* Main application layout */
+
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: transparent;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content-inner {
+    width: min(100%, 1480px);
+    flex: 1;
+    padding: 36px 42px 56px;
+    margin: 0 auto;
+}
+
+/* Responsive content */
+@media (min-width: 1600px) {
+    .main-content-inner {
+        padding-right: 56px;
+        padding-left: 56px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .main-content-inner {
+        padding: 30px 28px 44px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content-inner {
+        padding: 28px 18px 36px;
+    }
+}
+
+@media (max-width: 420px) {
+    .main-content-inner {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+}

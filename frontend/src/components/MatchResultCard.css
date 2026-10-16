@@ -1,0 +1,118 @@
+.match-result-card {
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #e8e7f1;
+    border-radius: 18px;
+    box-shadow: 0 14px 36px rgb(37 36 64 / 5%);
+}
+
+.match-result-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0eff5;
+}
+
+.match-result-header h2 {
+    margin: 4px 0 5px;
+    color: #292743;
+    font-size: clamp(19px, 2.5vw, 25px);
+    letter-spacing: -0.5px;
+}
+
+.match-result-header > div > p:last-child {
+    margin: 0;
+    color: #85899c;
+    font-size: 13px;
+}
+
+.overall-score {
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+    min-width: 108px;
+    padding: 13px;
+    color: #5748d7;
+    background: #f2efff;
+    border-radius: 15px;
+}
+
+.overall-score strong {
+    font-size: 25px;
+    letter-spacing: -1px;
+}
+
+.overall-score span {
+    color: #8179b4;
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.match-resume-label {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 15px 0;
+    color: #8b8da0;
+    font-size: 12px;
+}
+
+.match-resume-label strong {
+    color: #4a4961;
+}
+
+.skill-groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+    margin-top: 20px;
+}
+
+.critical-gap-box {
+    display: flex;
+    gap: 14px;
+    padding: 17px;
+    margin-top: 18px;
+    color: #87521d;
+    background: #fff8eb;
+    border: 1px solid #f8e7c8;
+    border-radius: 14px;
+}
+
+.critical-gap-icon {
+    display: grid;
+    flex: 0 0 36px;
+    place-items: center;
+    height: 36px;
+    background: #ffedcc;
+    border-radius: 11px;
+}
+
+.critical-gap-box h3 {
+    margin: 0;
+    color: #714718;
+    font-size: 14px;
+}
+
+.critical-gap-box p {
+    margin: 5px 0 12px;
+    color: #9b7545;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .match-result-card {
+        padding: 18px;
+    }
+
+    .match-result-header {
+        flex-direction: column;
+    }
+
+    .skill-groups {
+        grid-template-columns: 1fr;
+    }
+}

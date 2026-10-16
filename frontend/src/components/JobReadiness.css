@@ -1,0 +1,79 @@
+.job-readiness-card {
+    padding: 25px;
+    background: linear-gradient(135deg, #f5f2ff, #fff 72%);
+    border: 1px solid #e9e4ff;
+    border-radius: 18px;
+    box-shadow: 0 12px 34px rgb(74 58 157 / 5%);
+}
+
+.job-readiness-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.job-readiness-header h2 {
+    margin: 7px 0 0;
+    color: #2e2a50;
+    font-size: 19px;
+}
+
+.job-readiness-card .readiness-score {
+    color: #5949d5;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.job-readiness-card .readiness-progress {
+    height: 10px;
+    margin: 20px 0 14px;
+    overflow: hidden;
+    background: #e9e5f8;
+    border-radius: 999px;
+}
+
+.job-readiness-card .readiness-progress-fill {
+    background: linear-gradient(90deg, #a28cff, #6352e2);
+    border-radius: inherit;
+    transition: width 0.5s ease;
+}
+
+.readiness-status strong {
+    color: #4539b9;
+    font-size: 13px;
+}
+
+.readiness-status p {
+    margin: 6px 0 0;
+    color: #7c7c92;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.readiness-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.readiness-detail {
+    display: grid;
+    gap: 5px;
+    padding: 12px;
+    background: rgb(255 255 255 / 72%);
+    border: 1px solid #eeebfa;
+    border-radius: 11px;
+}
+
+.readiness-detail span {
+    color: #89889d;
+    font-size: 11px;
+}
+
+.readiness-detail strong {
+    color: #3b3957;
+    font-size: 13px;
+}

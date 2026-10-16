@@ -1,0 +1,208 @@
+.app-layout {
+    position: relative;
+    isolation: isolate;
+    background:
+        radial-gradient(ellipse at 12% 12%, rgb(224 219 255 / 38%), transparent 27rem),
+        radial-gradient(ellipse at 92% 46%, rgb(220 235 255 / 30%), transparent 30rem),
+        #f6f6fc;
+}
+
+.app-layout::before {
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    content: "";
+    background:
+        radial-gradient(circle at 84% 18%, rgb(151 132 255 / 10%), transparent 15rem),
+        radial-gradient(circle at 16% 76%, rgb(88 206 183 / 7%), transparent 18rem);
+    animation: app-atmosphere 18s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.dashboard-welcome,
+.resumes-header,
+.jobs-header,
+.ai-analysis-header,
+.profile-page .page-header,
+.interview-page .page-header {
+    position: relative;
+    isolation: isolate;
+    animation: app-header-enter .55s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.dashboard-welcome::after,
+.resumes-header::after,
+.jobs-header::after,
+.profile-page .page-header::after,
+.interview-page .page-header::after {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    right: 5%;
+    width: 150px;
+    height: 150px;
+    content: "";
+    background: radial-gradient(circle, rgb(131 111 239 / 13%), rgb(131 111 239 / 4%) 48%, transparent 72%);
+    border: 1px solid rgb(131 111 239 / 8%);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    animation: app-header-orb 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.dashboard-welcome::before,
+.resumes-header::before,
+.jobs-header::before,
+.profile-page .page-header::before,
+.interview-page .page-header::before {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    right: calc(5% + 43px);
+    width: 64px;
+    height: 64px;
+    content: "";
+    border: 1px dashed rgb(99 185 169 / 25%);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    animation: app-header-spin 20s linear infinite;
+    pointer-events: none;
+}
+
+.dashboard-welcome h1,
+.resumes-header h1,
+.jobs-header h1,
+.profile-page .page-header h1,
+.interview-page .page-header h1 {
+    background: linear-gradient(100deg, #292643 10%, #51449f 78%, #6254bc);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dashboard-card,
+.upload-card,
+.resume-list-card,
+.job-create-card,
+.match-control-card,
+.matches-history-card,
+.interview-selector,
+.interview-section,
+.profile-card,
+.ai-control-card,
+.selected-match-summary,
+.ai-summary-card,
+.skill-gap-explanation-card {
+    animation: app-card-enter .5s cubic-bezier(.2, .7, .2, 1) both;
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.dashboard-card:hover,
+.upload-card:hover,
+.resume-list-card:hover,
+.job-create-card:hover,
+.match-control-card:hover,
+.matches-history-card:hover,
+.interview-selector:hover,
+.interview-section:hover,
+.profile-card:hover,
+.ai-control-card:hover,
+.selected-match-summary:hover,
+.ai-summary-card:hover,
+.skill-gap-explanation-card:hover {
+    border-color: #ded9f7;
+    box-shadow: 0 17px 42px rgb(37 36 64 / 8%);
+}
+
+.app-layout .main-content-inner {
+    animation: app-content-enter .4s ease-out both;
+}
+
+@keyframes app-atmosphere {
+    from { opacity: .55; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes app-header-enter {
+    from { opacity: 0; transform: translateY(9px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes app-header-orb {
+    0%, 100% { opacity: .55; transform: translateY(-50%) scale(.94); }
+    50% { opacity: 1; transform: translateY(-50%) scale(1.05); }
+}
+
+@keyframes app-header-spin {
+    to { transform: translateY(-50%) rotate(360deg); }
+}
+
+@keyframes app-card-enter {
+    from { opacity: .4; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes app-content-enter {
+    from { opacity: .75; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 760px) {
+    .dashboard-welcome::after,
+    .resumes-header::after,
+    .jobs-header::after,
+    .profile-page .page-header::after,
+    .interview-page .page-header::after {
+        right: 0;
+        width: 108px;
+        height: 108px;
+        opacity: .6;
+    }
+
+    .dashboard-welcome::before,
+    .resumes-header::before,
+    .jobs-header::before,
+    .profile-page .page-header::before,
+    .interview-page .page-header::before {
+        right: 31px;
+        width: 49px;
+        height: 49px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .app-layout::before,
+    .dashboard-welcome,
+    .resumes-header,
+    .jobs-header,
+    .ai-analysis-header,
+    .profile-page .page-header,
+    .interview-page .page-header,
+    .dashboard-welcome::before,
+    .dashboard-welcome::after,
+    .resumes-header::before,
+    .resumes-header::after,
+    .jobs-header::before,
+    .jobs-header::after,
+    .profile-page .page-header::before,
+    .profile-page .page-header::after,
+    .interview-page .page-header::before,
+    .interview-page .page-header::after,
+    .app-layout .main-content-inner,
+    .dashboard-card,
+    .upload-card,
+    .resume-list-card,
+    .job-create-card,
+    .match-control-card,
+    .matches-history-card,
+    .interview-selector,
+    .interview-section,
+    .profile-card,
+    .ai-control-card,
+    .selected-match-summary,
+    .ai-summary-card,
+    .skill-gap-explanation-card {
+        animation: none;
+        transition: none;
+    }
+}

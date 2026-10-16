@@ -1,0 +1,25 @@
+.register-page .auth-card {
+    width: min(100%, 480px);
+}
+
+.register-page .auth-card > p {
+    margin-bottom: 22px;
+}
+
+.register-page .auth-card form {
+    gap: 8px;
+}
+
+.register-page .auth-card label {
+    margin-top: 8px;
+}
+
+.register-page .auth-card .auth-switch {
+    margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+    .register-page .auth-card {
+        padding: 24px;
+    }
+}

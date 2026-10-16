@@ -1,0 +1,34 @@
+.error-state {
+    max-width: 620px;
+    padding: 34px;
+    margin: 48px auto;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #fee1e5;
+    border-radius: 20px;
+    box-shadow: 0 16px 44px rgb(104 37 53 / 6%);
+}
+
+.error-state .error-icon {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 16px;
+    background: #fff0f2;
+    border-radius: 17px;
+    font-size: 25px;
+}
+
+.error-state h3 {
+    margin: 0 0 8px;
+    color: #34273e;
+    font-size: 19px;
+}
+
+.error-state p {
+    margin: 0;
+    color: #85899c;
+    font-size: 14px;
+    line-height: 1.75;
+}

@@ -1,0 +1,138 @@
+
+/* Profile page */
+.profile-page {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    color: #172033;
+}
+
+.profile-page .page-header {
+    margin-bottom: 28px;
+}
+
+.profile-page .page-header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+}
+
+.profile-page .page-header p {
+    margin-top: 9px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Profile form card */
+.profile-card {
+    width: min(100%, 780px);
+    padding: 30px;
+    border: 1px solid #e5eaf3;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 8px 28px rgba(15, 23, 42, 0.045);
+}
+
+.profile-card form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.profile-card label {
+    margin-top: 10px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.profile-card input,
+.profile-card textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #dbe2ee;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #172033;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-card input:focus,
+.profile-card textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.profile-card input:disabled {
+    background: #f8fafc;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+.profile-card textarea {
+    resize: vertical;
+    min-height: 130px;
+    line-height: 1.7;
+}
+
+.profile-card input::placeholder,
+.profile-card textarea::placeholder {
+    color: #94a3b8;
+}
+
+.profile-card button {
+    justify-self: start;
+    min-width: 150px;
+    margin-top: 18px;
+    padding: 12px 18px;
+    color: #fff;
+    background: linear-gradient(135deg, #7564f0, #5746d5);
+    border: 0;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Feedback messages */
+.success-message {
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    background: #f0fdf4;
+    color: #166534;
+    font-size: 14px;
+}
+
+.error {
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 760px) {
+    .profile-page .page-header h1 {
+        font-size: 26px;
+    }
+
+    .profile-card {
+        padding: 20px;
+    }
+
+    .profile-card button {
+        justify-self: stretch;
+    }
+}

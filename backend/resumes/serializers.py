@@ -1,0 +1,25 @@
+from rest_framework import serializers
+
+from .models import Resume
+
+
+class ResumeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Resume
+        fields = [
+            "id",
+            "title",
+            "file",
+            "extracted_text",
+            "uploaded_at",
+            "updated_at",
+            "is_active",
+        ]
+
+        read_only_fields = [
+            "id",
+            "extracted_text",
+            "uploaded_at",
+            "updated_at",
+        ]

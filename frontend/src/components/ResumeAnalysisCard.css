@@ -1,0 +1,92 @@
+.resume-analysis-card {
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e9e9f2;
+    border-radius: 17px;
+    box-shadow: 0 12px 34px rgb(37 36 64 / 5%);
+}
+
+.resume-analysis-card .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.resume-analysis-card .card-header h2 {
+    margin: 5px 0 0;
+    color: #302e4b;
+    font-size: 19px;
+}
+
+.analysis-status {
+    padding: 7px 11px;
+    color: #117b57;
+    background: #e9f8f1;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.candidate-info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.candidate-info-item {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    padding: 14px;
+    background: #fafaff;
+    border: 1px solid #f0eff7;
+    border-radius: 12px;
+}
+
+.candidate-info-item span {
+    color: #9294a6;
+    font-size: 11px;
+}
+
+.candidate-info-item strong {
+    overflow-wrap: anywhere;
+    color: #3c3a56;
+    font-size: 12px;
+}
+
+.resume-summary {
+    padding-top: 18px;
+    margin-top: 18px;
+    border-top: 1px solid #efeff5;
+}
+
+.resume-summary h3 {
+    margin: 0 0 7px;
+    color: #34324f;
+    font-size: 14px;
+}
+
+.resume-summary p {
+    margin: 0;
+    color: #77798d;
+    font-size: 13px;
+    line-height: 1.75;
+}
+
+@media (max-width: 800px) {
+    .candidate-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .resume-analysis-card {
+        padding: 17px;
+    }
+
+    .candidate-info-grid {
+        grid-template-columns: 1fr;
+    }
+}

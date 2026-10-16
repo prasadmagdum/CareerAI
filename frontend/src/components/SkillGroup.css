@@ -1,0 +1,71 @@
+.skill-group {
+    min-width: 0;
+    padding: 14px;
+    background: #fafaff;
+    border: 1px solid #f0eff7;
+    border-radius: 12px;
+}
+
+.skill-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 11px;
+}
+
+.skill-group-header h3 {
+    margin: 0;
+    color: #4a4961;
+    font-size: 12px;
+}
+
+.skill-group-header > span {
+    display: grid;
+    place-items: center;
+    min-width: 23px;
+    height: 23px;
+    padding: 0 6px;
+    color: #6558c9;
+    background: #efedff;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.skill-group-empty {
+    margin: 0;
+    color: #a0a1b0;
+    font-size: 11px;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.skill-tag {
+    padding: 6px 9px;
+    color: #686980;
+    background: #f0f0f6;
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.skill-tag.matched,
+.skill-tag.required {
+    color: #137b59;
+    background: #e7f7ee;
+}
+
+.skill-tag.missing {
+    color: #b54357;
+    background: #fff0f2;
+}
+
+.skill-tag.preferred {
+    color: #5748d7;
+    background: #efedff;
+}
