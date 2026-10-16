@@ -1,6 +1,7 @@
 from django.urls import path
 
 from .views import (
+    career_chat,
     generate_analysis,
     generate_interview_questions,
     my_ai_analyses,
@@ -9,6 +10,12 @@ from .views import (
 
 
 urlpatterns = [
+
+    path(
+        "chat/",
+        career_chat,
+        name="career-chat"
+    ),
 
     path(
         "analyze/",

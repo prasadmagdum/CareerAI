@@ -9,17 +9,6 @@
     box-shadow: 0 16px 44px rgb(104 37 53 / 6%);
 }
 
-.error-state .error-icon {
-    display: grid;
-    place-items: center;
-    width: 54px;
-    height: 54px;
-    margin: 0 auto 16px;
-    background: #fff0f2;
-    border-radius: 17px;
-    font-size: 25px;
-}
-
 .error-state h3 {
     margin: 0 0 8px;
     color: #34273e;

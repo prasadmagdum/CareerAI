@@ -216,8 +216,8 @@ function Interview() {
                     }
                 >
                     {generating
-                        ? "🤖 Generating..."
-                        : "🎯 Generate Interview Questions"}
+                        ? "Generating..."
+                        : "Generate Interview Questions"}
                 </button>
 
             </div>
@@ -227,10 +227,6 @@ function Interview() {
             {matches.length === 0 && (
 
                 <div className="empty-state">
-
-                    <div className="empty-icon">
-                        🎯
-                    </div>
 
                     <h3>
                         No job matches yet
@@ -253,7 +249,7 @@ function Interview() {
                     <div className="interview-intro">
 
                         <span className="ai-badge">
-                            🤖 AI Generated
+                            AI Generated
                         </span>
 
                         <h2>
@@ -281,7 +277,7 @@ function Interview() {
                     {/* Projects */}
 
                     <InterviewSection
-                        title="🚀 Project Questions"
+                        title="Project Questions"
                         questions={
                             preparation.project_questions ||
                             []
@@ -301,7 +297,7 @@ function Interview() {
                     {/* HR */}
 
                     <InterviewSection
-                        title="👤 HR Questions"
+                        title="HR Questions"
                         questions={
                             preparation.hr_questions ||
                             []

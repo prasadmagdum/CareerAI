@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import "./Layout.css";
 import "./AppExperience.css";
 
-function Layout({ children }) {
+function Layout({ children, footer = <Footer /> }) {
     return (
         <div className="app-layout">
             <Navbar />
@@ -15,7 +15,7 @@ function Layout({ children }) {
                 </div>
             </main>
 
-            <Footer />
+            {footer}
         </div>
     );
 }

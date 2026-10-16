@@ -44,18 +44,22 @@ function ResumeDetails({
                             <div>
 
                                 <h3>
-                                    {item.degree ||
-                                        item.title ||
-                                        "Education"}
+                                    {typeof item === "string"
+                                        ? item
+                                        : item.degree ||
+                                            item.title ||
+                                            "Education"}
                                 </h3>
 
-                                <p>
-                                    {item.institution ||
-                                        item.college ||
-                                        ""}
-                                </p>
+                                {typeof item !== "string" && (
+                                    <p>
+                                        {item.institution ||
+                                            item.college ||
+                                            ""}
+                                    </p>
+                                )}
 
-                                {item.year && (
+                                {typeof item !== "string" && item.year && (
                                     <small>
                                         {item.year}
                                     </small>
@@ -99,23 +103,21 @@ function ResumeDetails({
                             className="timeline-item"
                         >
 
-                            <div className="timeline-dot">
-                                💼
-                            </div>
-
                             <div>
 
                                 <h3>
-                                    {item.role ||
-                                        item.position ||
-                                        "Experience"}
+                                    {typeof item === "string"
+                                        ? item
+                                        : item.role ||
+                                            item.position ||
+                                            "Experience"}
                                 </h3>
 
-                                <p>
-                                    {item.company || ""}
-                                </p>
+                                {typeof item !== "string" && (
+                                    <p>{item.company || ""}</p>
+                                )}
 
-                                {item.duration && (
+                                {typeof item !== "string" && item.duration && (
                                     <small>
                                         {item.duration}
                                     </small>
@@ -159,16 +161,21 @@ function ResumeDetails({
                             className="project-item"
                         >
 
-                            <h3>
-                                {project.name ||
-                                    project.title ||
-                                    "Project"}
-                            </h3>
+                            {typeof project === "string" ? (
+                                <p>{project}</p>
+                            ) : (
+                                <>
+                                    <h3>
+                                        {project.name ||
+                                            project.title ||
+                                            "Project"}
+                                    </h3>
 
-                            <p>
-                                {project.description ||
-                                    ""}
-                            </p>
+                                    <p>
+                                        {project.description || ""}
+                                    </p>
+                                </>
+                            )}
 
                         </div>
 

@@ -176,6 +176,18 @@
     border-radius: 13px;
 }
 
+.resume-analysis-heading {
+    display: grid;
+    gap: 5px;
+}
+
+.resume-analysis-heading h2 {
+    margin: 0;
+    color: #302e4b;
+    font-size: 20px;
+    overflow-wrap: anywhere;
+}
+
 @media (max-width: 650px) {
     .resumes-page > .upload-card,
     .resume-list-card {

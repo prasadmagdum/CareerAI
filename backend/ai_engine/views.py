@@ -28,8 +28,92 @@ from .services.ai_validator import validate_ai_analysis
 from .services.interview_service import (
     generate_interview_preparation,
 )
+from .services.career_chat_service import (
+    generate_career_chat_reply,
+)
 
 logger = logging.getLogger(__name__)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def career_chat(request):
+    messages = request.data.get("messages")
+
+    if not isinstance(messages, list) or not messages or len(messages) > 12:
+        return Response(
+            {
+                "success": False,
+                "message": "Send between 1 and 12 recent chat messages.",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    validated_messages = []
+    for message in messages:
+        if not isinstance(message, dict):
+            return Response(
+                {
+                    "success": False,
+                    "message": (
+                        "Each message must have the role 'user' or "
+                        "'assistant' and contain 1 to 1500 characters."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        role = message.get("role")
+        content = message.get("content")
+        if (
+            role not in {"user", "assistant"}
+            or not isinstance(content, str)
+            or not content.strip()
+            or len(content) > 1500
+        ):
+            return Response(
+                {
+                    "success": False,
+                    "message": (
+                        "Each message must have the role 'user' or "
+                        "'assistant' and contain 1 to 1500 characters. "
+                        "Long chat history is shortened automatically."
+                    ),
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        validated_messages.append(
+            {"role": role, "content": content.strip()}
+        )
+
+    if validated_messages[-1]["role"] != "user":
+        return Response(
+            {
+                "success": False,
+                "message": "The latest chat message must be from the user.",
+            },
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    try:
+        reply = generate_career_chat_reply(validated_messages)
+        return Response(
+            {"success": True, "reply": reply},
+            status=status.HTTP_200_OK,
+        )
+    except Exception:
+        logger.exception("Career chat failed for user %s", request.user.pk)
+        return Response(
+            {
+                "success": False,
+                "message": (
+                    "The CareerAI assistant is temporarily unavailable. "
+                    "Please try again shortly."
+                ),
+            },
+            status=status.HTTP_503_SERVICE_UNAVAILABLE,
+        )
 
 
 @api_view(["POST"])

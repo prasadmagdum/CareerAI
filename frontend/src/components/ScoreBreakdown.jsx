@@ -20,7 +20,6 @@ function ScoreBreakdown({
         {
             label: "Experience Match",
             value: experienceScore,
-            icon: "💼",
         },
     ];
 
@@ -42,7 +41,6 @@ function ScoreBreakdown({
                         <div className="score-breakdown-header">
 
                             <span>
-                                {score.icon}{" "}
                                 {score.label}
                             </span>
 

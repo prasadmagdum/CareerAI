@@ -3,14 +3,13 @@ import "./InsightList.css";
 function InsightList({
     title,
     items = [],
-    icon = "•",
     type = "default",
 }) {
     return (
         <div className={`insight-card ${type}`}>
             <div className="insight-card-header">
                 <h3>
-                    {icon} {title}
+                    {title}
                 </h3>
 
                 <span className="insight-count">

@@ -231,7 +231,7 @@ function AIAnalysis() {
             {matches.length === 0 ? (
                 <div className="empty-state-card">
                     <div className="empty-state-icon">
-                        🤖
+                        AI
                     </div>
 
                     <h2>No Job Matches Yet</h2>
@@ -327,10 +327,10 @@ function AIAnalysis() {
                                     />
                                 )}
                                 {generating
-                                    ? "🤖 Generating..."
+                                    ? "Generating..."
                                     : analysis
-                                    ? "🔄 Regenerate Analysis"
-                                    : "✨ Generate AI Analysis"}
+                                    ? "Regenerate Analysis"
+                                    : "Generate AI Analysis"}
                             </button>
                         </div>
                     </div>
@@ -400,7 +400,7 @@ function AIAnalysis() {
                             {/* Summary */}
                             <div className="ai-summary-card">
                                 <div className="ai-summary-icon">
-                                    🤖
+                                    AI
                                 </div>
 
                                 <div>
@@ -431,7 +431,6 @@ function AIAnalysis() {
 
                                 <InsightList
                                     title="Strengths"
-                                    icon="💪"
                                     type="positive"
                                     items={
                                         analysis.strengths ||
@@ -441,7 +440,6 @@ function AIAnalysis() {
 
                                 <InsightList
                                     title="Weaknesses"
-                                    icon="⚠️"
                                     type="warning"
                                     items={
                                         analysis.weaknesses ||
@@ -451,7 +449,6 @@ function AIAnalysis() {
 
                                 <InsightList
                                     title="Critical Skill Gaps"
-                                    icon="🔴"
                                     type="critical"
                                     items={
                                         analysis.critical_skill_gaps ||
@@ -461,7 +458,6 @@ function AIAnalysis() {
 
                                 <InsightList
                                     title="Preferred Skill Gaps"
-                                    icon="🟡"
                                     type="preferred"
                                     items={
                                         analysis.preferred_skill_gaps ||
@@ -471,7 +467,6 @@ function AIAnalysis() {
 
                                 <InsightList
                                     title="Recommendations"
-                                    icon="💡"
                                     type="recommendation"
                                     items={
                                         analysis.recommendations ||
@@ -481,7 +476,6 @@ function AIAnalysis() {
 
                                 <InsightList
                                     title="Resume Improvements"
-                                    icon="📄"
                                     type="resume"
                                     items={
                                         analysis.resume_improvements ||

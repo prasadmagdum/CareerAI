@@ -77,7 +77,7 @@ function MatchResultCard({ match }) {
 
             <div className="match-resume-label">
 
-                📄 Resume:
+                Resume:
 
                 <strong>
                     {resumeTitle}
@@ -153,11 +153,6 @@ function MatchResultCard({ match }) {
                 0) && (
 
                 <div className="critical-gap-box">
-
-                    <div className="critical-gap-icon">
-                        ⚠️
-                    </div>
-
                     <div>
 
                         <h3>

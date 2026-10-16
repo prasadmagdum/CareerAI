@@ -431,14 +431,6 @@ function Landing() {
                 </Link>
             </section>
 
-            <footer className="landing-footer">
-                <Link to="/" className="landing-brand">
-                    <span className="landing-brand-mark"><BrainCircuit size={18} /></span>
-                    <span>Career<span>AI</span></span>
-                </Link>
-                <span>Thoughtful AI for your next career move.</span>
-                <div><Link to="/login">Sign in</Link><Link to="/register">Create account</Link></div>
-            </footer>
         </main>
     );
 }

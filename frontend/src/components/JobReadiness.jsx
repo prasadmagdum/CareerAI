@@ -32,7 +32,7 @@ function JobReadiness({ readiness = {} }) {
                         AI Assessment
                     </span>
 
-                    <h2>🎯 Job Readiness</h2>
+                    <h2>Job Readiness</h2>
                 </div>
 
                 <div className="readiness-score">

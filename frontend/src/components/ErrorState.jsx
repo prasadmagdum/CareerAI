@@ -6,10 +6,6 @@ function ErrorState({
     return (
         <div className="error-state">
 
-            <div className="error-icon">
-                ⚠️
-            </div>
-
             <h3>
                 Something went wrong
             </h3>

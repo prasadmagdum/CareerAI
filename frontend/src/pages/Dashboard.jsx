@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import StatCard from "../components/StatCard";
 import MatchMiniCard from "../components/MatchMiniCard";
-import ReadinessCard from "../components/ReadinessCard";
 import LoadingState from "../components/LoadingState";
 import ErrorState from "../components/ErrorState";
+import CareerChatbot from "../components/CareerChatbot";
+import Footer from "../components/Footer";
 
+import heroArtwork from "../assets/hero.png";
 import { getDashboardData } from "../services/dashboardService";
 
 import "./Dashboard.css";
@@ -62,16 +64,11 @@ function Dashboard() {
 
 
     const {
-        profile,
         resumes,
         matches,
         analyses,
         interviews,
     } = dashboard;
-
-
-    const username =
-        profile?.username || "Candidate";
 
 
     const averageMatch =
@@ -93,14 +90,14 @@ function Dashboard() {
             : null;
 
 
-    const recentMatches =
-        matches.slice(0, 5);
+    const latestMatch =
+        matches[0] || null;
 
 
     if (loading) {
 
         return (
-            <Layout>
+            <Layout footer={<Footer />}>
                 <LoadingState
                     message="Loading your CareerAI dashboard..."
                 />
@@ -112,7 +109,7 @@ function Dashboard() {
     if (error) {
 
         return (
-            <Layout>
+            <Layout footer={<Footer />}>
                 <ErrorState
                     message={error}
                 />
@@ -121,7 +118,7 @@ function Dashboard() {
     }
 
     return (
-        <Layout>
+        <Layout footer={<Footer />}>
 
             <div className="dashboard">
 
@@ -129,19 +126,25 @@ function Dashboard() {
 
                 <div className="dashboard-page">
                     <header className="dashboard-welcome">
-                        <div>
+                        <div className="dashboard-welcome-copy">
                             <p className="dashboard-eyebrow">
-                                CAREER INTELLIGENCE
+                                CAREERAI INTELLIGENCE
                             </p>
 
                             <h1 className="dashboard-title">
-                                Welcome back, {username}
+                                Your next career move starts here
                             </h1>
 
                             <p className="dashboard-subtitle">
-                                Track your progress and discover your next opportunity.
+                                Discover your strengths, find roles that fit, and prepare to stand out with CareerAI.
                             </p>
                         </div>
+                        <img
+                            className="dashboard-welcome-art"
+                            src={heroArtwork}
+                            alt=""
+                            aria-hidden="true"
+                        />
                     </header>
 
                 </div>
@@ -154,40 +157,36 @@ function Dashboard() {
                     <StatCard
                         title="My Resumes"
                         value={resumes.length}
-                        icon="📄"
+                        icon="CV"
                         description="Uploaded resumes"
+                        to="/resumes"
                     />
 
                     <StatCard
                         title="Job Matches"
                         value={matches.length}
-                        icon="💼"
+                        icon="JOB"
                         description="Matched opportunities"
+                        to="/jobs"
                     />
 
                     <StatCard
                         title="Average Match"
                         value={`${averageMatch.toFixed(1)}%`}
-                        icon="🎯"
+                        icon="FIT"
                         description="Overall compatibility"
+                        to="/jobs"
                     />
 
                     <StatCard
                         title="Interview Prep"
                         value={interviews.length}
-                        icon="🤖"
+                        icon="AI"
                         description="Prepared interviews"
+                        to="/interview"
                     />
 
                 </div>
-
-
-                {/* READINESS */}
-
-                <ReadinessCard
-                    analysis={latestAnalysis}
-                    averageScore={averageMatch}
-                />
 
 
                 {/* MAIN GRID */}
@@ -196,7 +195,7 @@ function Dashboard() {
 
                     {/* RECENT MATCHES */}
 
-                    <div className="dashboard-card">
+                    <div className="dashboard-card dashboard-matches-card">
 
                         <div className="card-header">
 
@@ -206,7 +205,7 @@ function Dashboard() {
                                 </p>
 
                                 <h2>
-                                    Recent Job Matches
+                                    Latest Job Match
                                 </h2>
                             </div>
 
@@ -217,13 +216,9 @@ function Dashboard() {
                         </div>
 
 
-                        {recentMatches.length === 0 ? (
+                        {!latestMatch ? (
 
                             <div className="empty-state">
-
-                                <div className="empty-icon">
-                                    💼
-                                </div>
 
                                 <h3>
                                     No job matches yet
@@ -247,16 +242,10 @@ function Dashboard() {
                         ) : (
 
                             <div className="recent-matches">
-
-                                {recentMatches.map(
-                                    (match) => (
-                                        <MatchMiniCard
-                                            key={match.id}
-                                            match={match}
-                                        />
-                                    )
-                                )}
-
+                                <MatchMiniCard
+                                    key={latestMatch.id}
+                                    match={latestMatch}
+                                />
                             </div>
 
                         )}
@@ -266,7 +255,7 @@ function Dashboard() {
 
                     {/* RESUME */}
 
-                    <div className="dashboard-card">
+                    <div className="dashboard-card dashboard-resume-card">
 
                         <div className="card-header">
 
@@ -290,10 +279,6 @@ function Dashboard() {
                         {resumes.length === 0 ? (
 
                             <div className="empty-state">
-
-                                <div className="empty-icon">
-                                    📄
-                                </div>
 
                                 <h3>
                                     No resume uploaded
@@ -381,7 +366,7 @@ function Dashboard() {
 
                                 <div>
                                     <strong>
-                                        💪 Strengths
+                                        Strengths
                                     </strong>
 
                                     <span>
@@ -396,7 +381,7 @@ function Dashboard() {
 
                                 <div>
                                     <strong>
-                                        ⚠️ Weaknesses
+                                        Weaknesses
                                     </strong>
 
                                     <span>
@@ -411,7 +396,7 @@ function Dashboard() {
 
                                 <div>
                                     <strong>
-                                        🔴 Critical Gaps
+                                        Critical Gaps
                                     </strong>
 
                                     <span>
@@ -426,7 +411,7 @@ function Dashboard() {
 
                                 <div>
                                     <strong>
-                                        💡 Recommendations
+                                        Recommendations
                                     </strong>
 
                                     <span>
@@ -445,10 +430,6 @@ function Dashboard() {
                     ) : (
 
                         <div className="empty-state">
-
-                            <div className="empty-icon">
-                                🤖
-                            </div>
 
                             <h3>
                                 No AI analysis yet
@@ -488,20 +469,28 @@ function Dashboard() {
 
                     <div className="quick-actions">
 
-                        <Link to="/resumes">
-                            📄 Upload Resume
+                        <Link to="/resumes" className="quick-action-resume">
+                            <span aria-hidden="true">CV</span>
+                            <span>Upload Resume</span>
+                            <span className="quick-action-arrow" aria-hidden="true">↗</span>
                         </Link>
 
-                        <Link to="/jobs">
-                            💼 Find Job Matches
+                        <Link to="/jobs" className="quick-action-jobs">
+                            <span aria-hidden="true">JOB</span>
+                            <span>Find Job Matches</span>
+                            <span className="quick-action-arrow" aria-hidden="true">↗</span>
                         </Link>
 
-                        <Link to="/interview">
-                            🎯 Prepare Interview
+                        <Link to="/interview" className="quick-action-interview">
+                            <span aria-hidden="true">PRE</span>
+                            <span>Prepare Interview</span>
+                            <span className="quick-action-arrow" aria-hidden="true">↗</span>
                         </Link>
 
-                        <Link to="/profile">
-                            👤 Update Profile
+                        <Link to="/profile" className="quick-action-profile">
+                            <span aria-hidden="true">ME</span>
+                            <span>Update Profile</span>
+                            <span className="quick-action-arrow" aria-hidden="true">↗</span>
                         </Link>
 
                     </div>
@@ -510,6 +499,7 @@ function Dashboard() {
 
             </div>
 
+            <CareerChatbot />
         </Layout>
     );
 }

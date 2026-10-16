@@ -6,10 +6,6 @@ function ResumeAnalysisCard({ analysis }) {
         return (
             <div className="resume-analysis-card">
                 <div className="empty-state">
-                    <div className="empty-icon">
-                        🤖
-                    </div>
-
                     <h3>
                         No analysis available
                     </h3>

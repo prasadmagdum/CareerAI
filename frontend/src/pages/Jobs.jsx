@@ -351,7 +351,7 @@ function Jobs() {
 
                 {error && (
                     <div className="form-error">
-                        ⚠️ {error}
+                        {error}
                     </div>
                 )}
 
@@ -379,10 +379,6 @@ function Jobs() {
                             </h2>
 
                         </div>
-
-                        <span className="upload-icon">
-                            💼
-                        </span>
 
                     </div>
 
@@ -533,10 +529,6 @@ function Jobs() {
 
                         </div>
 
-                        <span className="upload-icon">
-                            🎯
-                        </span>
-
                     </div>
 
 
@@ -635,7 +627,7 @@ function Jobs() {
                         >
                             {matching
                                 ? "Analyzing..."
-                                : "🚀 Match Resume"}
+                                : "Match Resume"}
                         </button>
 
                     </div>
@@ -682,10 +674,6 @@ function Jobs() {
                     {matches.length === 0 ? (
 
                         <div className="empty-state">
-
-                            <div className="empty-icon">
-                                🎯
-                            </div>
 
                             <h3>
                                 No matches yet

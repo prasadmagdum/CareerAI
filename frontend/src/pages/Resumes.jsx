@@ -252,10 +252,6 @@ function Resumes() {
 
                         </div>
 
-                        <div className="upload-icon">
-                            📄
-                        </div>
-
                     </div>
 
 
@@ -306,7 +302,7 @@ function Resumes() {
 
                         {error && (
                             <div className="form-error">
-                                ⚠️ {error}
+                                {error}
                             </div>
                         )}
 
@@ -362,10 +358,6 @@ function Resumes() {
 
                         <div className="empty-state">
 
-                            <div className="empty-icon">
-                                📄
-                            </div>
-
                             <h3>
                                 No resumes uploaded
                             </h3>
@@ -401,10 +393,6 @@ function Resumes() {
                                     }
                                 >
 
-                                    <div className="resume-list-icon">
-                                        📄
-                                    </div>
-
                                     <div>
 
                                         <strong>
@@ -436,6 +424,11 @@ function Resumes() {
                 {selectedResume && (
 
                     <>
+
+                        <div className="resume-analysis-heading">
+                            <p className="eyebrow">SELECTED RESUME</p>
+                            <h2>{selectedResume.title}</h2>
+                        </div>
 
                         <ResumeAnalysisCard
                             analysis={analysis}

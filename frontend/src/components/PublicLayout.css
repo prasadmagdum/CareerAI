@@ -1,0 +1,5 @@
+.public-layout > .landing-page,
+.public-layout > .auth-page {
+    flex: 1;
+    min-height: auto;
+}

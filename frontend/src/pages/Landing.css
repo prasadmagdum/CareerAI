@@ -51,8 +51,7 @@
     gap: 31px;
 }
 
-.landing-nav > a,
-.landing-footer > div a {
+.landing-nav > a {
     color: #6d6c82;
     font-size: 13px;
     font-weight: 620;
@@ -60,8 +59,7 @@
     transition: color 0.2s ease, background 0.2s ease;
 }
 
-.landing-nav > a:hover,
-.landing-footer > div a:hover {
+.landing-nav > a:hover {
     color: var(--landing-purple);
 }
 
@@ -642,42 +640,6 @@
     font-size: 11px;
 }
 
-.landing-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    width: min(100% - 64px, 1280px);
-    min-height: 82px;
-    margin: 0 auto;
-    border-top: 1px solid #eeedf4;
-}
-
-.landing-footer .landing-brand {
-    gap: 8px;
-    font-size: 15px;
-}
-
-.landing-footer .landing-brand-mark {
-    width: 31px;
-    height: 31px;
-    border-radius: 10px;
-}
-
-.landing-footer > span {
-    color: #9290a2;
-    font-size: 10px;
-}
-
-.landing-footer > div {
-    display: flex;
-    gap: 20px;
-}
-
-.landing-footer > div a {
-    font-size: 10px;
-}
-
 @keyframes landing-copy-in {
     from { opacity: 0; transform: translateY(11px); }
     to { opacity: 1; transform: translateY(0); }
@@ -702,8 +664,7 @@
     .landing-hero,
     .landing-trust-row,
     .landing-how,
-    .landing-bottom-cta,
-    .landing-footer {
+    .landing-bottom-cta {
         width: min(100% - 48px, 860px);
     }
 
@@ -740,8 +701,7 @@
     .landing-hero,
     .landing-trust-row,
     .landing-how,
-    .landing-bottom-cta,
-    .landing-footer {
+    .landing-bottom-cta {
         width: min(100% - 38px, 560px);
     }
 
@@ -856,16 +816,6 @@
         margin-left: 62px;
     }
 
-    .landing-footer {
-        flex-wrap: wrap;
-        justify-content: space-between;
-        padding: 19px 0;
-    }
-
-    .landing-footer > span {
-        order: 3;
-        width: 100%;
-    }
 }
 
 @media (max-width: 520px) {
@@ -873,8 +823,7 @@
     .landing-hero,
     .landing-trust-row,
     .landing-how,
-    .landing-bottom-cta,
-    .landing-footer {
+    .landing-bottom-cta {
         width: calc(100% - 32px);
     }
 
@@ -1003,13 +952,6 @@
         margin-left: 56px;
     }
 
-    .landing-footer > span {
-        font-size: 9px;
-    }
-
-    .landing-footer > div {
-        gap: 12px;
-    }
 }
 
 .landing-ai-lab {

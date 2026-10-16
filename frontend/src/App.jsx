@@ -12,6 +12,7 @@ import Interview from "./pages/Interview";
 import AIAnalysis from "./pages/AIAnalysis";
 
 import Layout from "./components/Layout";
+import PublicLayout from "./components/PublicLayout";
 import { useAuth } from "./context/AuthContext";
 
 function ProtectedRoute({ children }) {
@@ -34,7 +35,11 @@ function App() {
                 element={
                     isAuthenticated
                         ? <Navigate to="/dashboard" replace />
-                        : <Login />
+                        : (
+                            <PublicLayout>
+                                <Login />
+                            </PublicLayout>
+                        )
                 }
             />
 
@@ -43,7 +48,11 @@ function App() {
                 element={
                     isAuthenticated
                         ? <Navigate to="/dashboard" replace />
-                        : <Register />
+                        : (
+                            <PublicLayout>
+                                <Register />
+                            </PublicLayout>
+                        )
                 }
             />
 
@@ -52,7 +61,11 @@ function App() {
                 element={
                     isAuthenticated
                         ? <Navigate to="/dashboard" replace />
-                        : <Landing />
+                        : (
+                            <PublicLayout>
+                                <Landing />
+                            </PublicLayout>
+                        )
                 }
             />
 

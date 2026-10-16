@@ -1,23 +1,27 @@
 .match-mini-card {
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
     gap: 16px;
     padding: 16px;
-    background: #fff;
+    background: rgb(255 255 255 / 78%);
     border: 1px solid #ecebf4;
     border-radius: 14px;
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .match-mini-card:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     border-color: #d6d0ff;
+    box-shadow: 0 9px 22px rgb(54 45 137 / 7%);
 }
 
 .match-mini-info h3 {
     margin: 0 0 5px;
     color: #302e4b;
     font-size: 14px;
+    overflow-wrap: anywhere;
 }
 
 .match-mini-info p {
