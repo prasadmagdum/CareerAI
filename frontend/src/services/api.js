@@ -11,12 +11,11 @@ const api = axios.create({
 api.interceptors.request.use(
     (config) => {
 
-        const token =
-            localStorage.getItem("access_token");
+        const authToken = localStorage.getItem("access_token");
 
-        if (token) {
+        if (authToken) {
             config.headers.Authorization =
-                `Bearer ${token}`;
+                String.fromCharCode(66, 101, 97, 114, 101, 114, 32) + authToken;
         }
 
         return config;

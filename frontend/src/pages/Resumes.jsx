@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Plus, X } from "lucide-react";
 
 import Layout from "../components/Layout";
 import LoadingState from "../components/LoadingState";
@@ -6,6 +7,7 @@ import ErrorState from "../components/ErrorState";
 import ResumeAnalysisCard from "../components/ResumeAnalysisCard";
 import ResumeSkills from "../components/ResumeSkills";
 import ResumeDetails from "../components/ResumeDetails";
+import ResumeBuilder from "../components/ResumeBuilder";
 
 import {
     getMyResumes,
@@ -37,6 +39,9 @@ function Resumes() {
 
     const [success, setSuccess] =
         useState("");
+
+    const [showBuilder, setShowBuilder] =
+        useState(false);
 
 
     useEffect(() => {
@@ -231,8 +236,24 @@ function Resumes() {
                             Manage your resumes and prepare for your next opportunity.
                         </p>
                     </div>
+                    <button
+                        type="button"
+                        className="btn btn-primary resumes-create-button"
+                        aria-expanded={showBuilder}
+                        aria-controls="resume-builder"
+                        onClick={() => setShowBuilder((visible) => !visible)}
+                    >
+                        {showBuilder ? <X size={16} /> : <Plus size={16} />}
+                        {showBuilder ? "Close builder" : "Create a resume"}
+                    </button>
                 </header>
 
+                {showBuilder && (
+                    <ResumeBuilder
+                        id="resume-builder"
+                        onClose={() => setShowBuilder(false)}
+                    />
+                )}
 
                 {/* UPLOAD */}
 

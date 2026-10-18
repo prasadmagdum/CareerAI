@@ -17,7 +17,13 @@ from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".env")
+ENV_FILE = BASE_DIR / ".env"
+ENV_ENCODING = "utf-8-sig"
+if ENV_FILE.is_file():
+    with ENV_FILE.open("rb") as env_file:
+        if env_file.read(2) in (b"\xff\xfe", b"\xfe\xff"):
+            ENV_ENCODING = "utf-16"
+load_dotenv(ENV_FILE, encoding=ENV_ENCODING)
 
 def env_bool(name, default=False):
     value = os.getenv(name)
