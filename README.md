@@ -28,4 +28,4 @@ Results:
 
 ![image](https://github.com/prasadmagdum/CareerAI/blob/7cc09c4ec1a1befbd0c87aed6e147de3dc7ffd28/Screenshot%202026-10-16%20125828.png),
 
-![image](https://github.com/prasadmagdum/CareerAI/blob/7cc09c4ec1a1befbd0c87aed6e147de3dc7ffd28/Screenshot%202026-10-16%20125847.png),
+![image](https://github.com/prasadmagdum/CareerAI/blob/7cc09c4ec1a1befbd0c87aed6e147de3dc7ffd28/Screenshot%202026-10-16%20125847.png) 
