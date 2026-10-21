@@ -21,20 +21,29 @@ function Profile() {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        loadProfile();
+        let isMounted = true;
+
+        getProfile()
+            .then((data) => {
+                if (isMounted) {
+                    setProfile(data.data || data);
+                }
+            })
+            .catch(() => {
+                if (isMounted) {
+                    setError("Unable to load profile.");
+                }
+            })
+            .finally(() => {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
-
-    async function loadProfile() {
-        try {
-            const data = await getProfile();
-
-            setProfile(data.data || data);
-        } catch (err) {
-            setError("Unable to load profile.");
-        } finally {
-            setLoading(false);
-        }
-    }
 
     function handleChange(event) {
         setProfile({
@@ -58,7 +67,7 @@ function Profile() {
             });
 
             setMessage("Profile updated successfully.");
-        } catch (err) {
+        } catch {
             setError("Unable to update profile.");
         } finally {
             setSaving(false);

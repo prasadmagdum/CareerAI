@@ -253,70 +253,30 @@ def generate_analysis(request):
             match_data
         )
 
-        # --------------------------------------------------
-        # REMOVE EXISTING ANALYSIS
-        # --------------------------------------------------
-
-        AIAnalysis.objects.filter(
-            match_result=match_result
-        ).delete()
-
-        # --------------------------------------------------
-        # CREATE NEW ANALYSIS
-        # --------------------------------------------------
-
-        ai_analysis = AIAnalysis.objects.create(
+        ai_analysis, created = AIAnalysis.objects.update_or_create(
             match_result=match_result,
-
-            summary=ai_result.get(
-                "summary",
-                ""
-            ),
-
-            strengths=ai_result.get(
-                "strengths",
-                []
-            ),
-
-            weaknesses=ai_result.get(
-                "weaknesses",
-                []
-            ),
-
-            critical_skill_gaps=ai_result.get(
-                "critical_skill_gaps",
-                []
-            ),
-
-            preferred_skill_gaps=ai_result.get(
-                "preferred_skill_gaps",
-                []
-            ),
-
-            recommendations=ai_result.get(
-                "recommendations",
-                []
-            ),
-
-            skill_gap_explanation=ai_result.get(
-                "skill_gap_explanation",
-                []
-            ),
-
-            interview_questions=ai_result.get(
-                "interview_questions",
-                []
-            ),
-
-            resume_improvements=ai_result.get(
-                "resume_improvements",
-                []
-            ),
-
-            job_readiness=ai_result.get(
-                "job_readiness",
-                {}
-            )
+            defaults={
+                "summary": ai_result.get("summary", ""),
+                "strengths": ai_result.get("strengths", []),
+                "weaknesses": ai_result.get("weaknesses", []),
+                "critical_skill_gaps": ai_result.get(
+                    "critical_skill_gaps", []
+                ),
+                "preferred_skill_gaps": ai_result.get(
+                    "preferred_skill_gaps", []
+                ),
+                "recommendations": ai_result.get("recommendations", []),
+                "skill_gap_explanation": ai_result.get(
+                    "skill_gap_explanation", []
+                ),
+                "interview_questions": ai_result.get(
+                    "interview_questions", []
+                ),
+                "resume_improvements": ai_result.get(
+                    "resume_improvements", []
+                ),
+                "job_readiness": ai_result.get("job_readiness", {}),
+            },
         )
 
         serializer = AIAnalysisSerializer(
@@ -329,7 +289,11 @@ def generate_analysis(request):
                 "message": "AI analysis generated successfully.",
                 "data": serializer.data
             },
-            status=status.HTTP_201_CREATED
+            status=(
+                status.HTTP_201_CREATED
+                if created
+                else status.HTTP_200_OK
+            )
         )
 
     except Exception:
@@ -471,50 +435,22 @@ def generate_interview_questions(request):
             )
         )
 
-        # -----------------------------------------
-        # REMOVE OLD PREPARATION
-        # -----------------------------------------
-
-        InterviewPreparation.objects.filter(
-            match_result=match_result
-        ).delete()
-
-        # -----------------------------------------
-        # SAVE NEW PREPARATION
-        # -----------------------------------------
-
-        preparation = (
-            InterviewPreparation.objects.create(
-                match_result=match_result,
-
-                technical_questions=(
-                    interview_result.get(
-                        "technical_questions",
-                        []
-                    )
+        preparation, created = InterviewPreparation.objects.update_or_create(
+            match_result=match_result,
+            defaults={
+                "technical_questions": interview_result.get(
+                    "technical_questions", []
                 ),
-
-                project_questions=(
-                    interview_result.get(
-                        "project_questions",
-                        []
-                    )
+                "project_questions": interview_result.get(
+                    "project_questions", []
                 ),
-
-                skill_gap_questions=(
-                    interview_result.get(
-                        "skill_gap_questions",
-                        []
-                    )
+                "skill_gap_questions": interview_result.get(
+                    "skill_gap_questions", []
                 ),
-
-                hr_questions=(
-                    interview_result.get(
-                        "hr_questions",
-                        []
-                    )
+                "hr_questions": interview_result.get(
+                    "hr_questions", []
                 ),
-            )
+            },
         )
 
         serializer = InterviewPreparationSerializer(
@@ -530,7 +466,11 @@ def generate_interview_questions(request):
                 ),
                 "data": serializer.data
             },
-            status=status.HTTP_201_CREATED
+            status=(
+                status.HTTP_201_CREATED
+                if created
+                else status.HTTP_200_OK
+            )
         )
 
     except Exception:

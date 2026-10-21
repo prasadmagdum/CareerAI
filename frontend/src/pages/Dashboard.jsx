@@ -25,34 +25,33 @@ function Dashboard() {
     const [error, setError] = useState("");
 
 
-    async function loadDashboard() {
-
-        try {
-            const data =
-                await getDashboardData();
-
-            setDashboard(data);
-
-        } catch (error) {
-
-            console.error(
-                "Dashboard loading error:",
-                error
-            );
-
-            setError(
-                "Unable to load your dashboard. Please check that the backend server is running."
-            );
-
-        } finally {
-
-            setLoading(false);
-
-        }
-    }
-
     useEffect(() => {
-        loadDashboard();
+        let isMounted = true;
+
+        getDashboardData()
+            .then((data) => {
+                if (isMounted) {
+                    setDashboard(data);
+                }
+            })
+            .catch((error) => {
+                console.error("Dashboard loading error:", error);
+
+                if (isMounted) {
+                    setError(
+                        "Unable to load your dashboard. Please check that the backend server is running."
+                    );
+                }
+            })
+            .finally(() => {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const {

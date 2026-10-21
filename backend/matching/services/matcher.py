@@ -22,12 +22,6 @@ def get_resume_skills(resume):
 def get_job_required_skills(job):
     """
     Get required skills from the job.
-
-    This supports the Job Skill model using a 'required'
-    boolean field.
-
-    If your Skill model uses a different field name,
-    update the 'required' reference here.
     """
 
     required_skills = set()
@@ -35,11 +29,12 @@ def get_job_required_skills(job):
 
     for skill in job.skills.all():
         skill_name = normalize_skill(skill.name)
+        importance = (skill.importance or "required").strip().lower()
 
-        if getattr(skill, "required", True):
-            required_skills.add(skill_name)
-        else:
+        if importance == "preferred":
             preferred_skills.add(skill_name)
+        else:
+            required_skills.add(skill_name)
 
     return required_skills, preferred_skills
 

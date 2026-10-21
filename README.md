@@ -2,23 +2,32 @@
 
 CareerAI analyzes resumes, matches candidates with job descriptions, identifies skill gaps, and generates AI-powered resume improvements and interview questions.
 
-#Tech Stack
+## Tech Stack
 -  React.js
 - Python & Django REST Framework
 - PostgreSQL
 - Ollama (Llama 3.2)
-- Sentence Transformers
+- TF-IDF text similarity
 - JWT Authentication
 
-#Run Locally
+## Run Locally
 
-*Backend*
-```bash
+### Backend
+
+```powershell
+Set-Location backend
+python -m pip install -r requirements.txt
+Copy-Item .env.example .env
+# Configure the database and SECRET_KEY in .env.
+python manage.py migrate
 python manage.py runserver
 ```
 
-*Frontend*
-```bash
+### Frontend
+
+```powershell
+Set-Location frontend
+npm ci
 npm run dev
 ```
 

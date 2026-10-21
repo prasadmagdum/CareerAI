@@ -1,3 +1,6 @@
+import re
+
+
 TECHNICAL_SKILLS = {
     "programming": [
         "python",
@@ -109,4 +112,5 @@ def skill_exists(text, skill):
     Check whether a skill exists in the text.
     """
 
-    return skill.lower() in text.lower()
+    pattern = rf"(?<!\w){re.escape(skill)}(?!\w)"
+    return re.search(pattern, text, re.IGNORECASE) is not None

@@ -75,75 +75,74 @@ function AIAnalysis() {
     const [selectedMatchId, setSelectedMatchId] =
         useState("");
 
-    const [analysis, setAnalysis] = useState(null);
-
     const [loading, setLoading] = useState(true);
     const [generating, setGenerating] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
     useEffect(() => {
-        loadData();
-    }, []);
+        let isMounted = true;
 
-    async function loadData() {
-        try {
-            setLoading(true);
-            setError("");
-
-            const [
-                matchesResponse,
-                analysesResponse,
-            ] = await Promise.all([
-                getMyMatches(),
-                getMyAIAnalyses(),
-            ]);
-
-            const matchesData =
-                matchesResponse?.results ||
-                matchesResponse?.data ||
-                matchesResponse ||
-                [];
-
-            const analysesData =
-                analysesResponse?.results ||
-                analysesResponse?.data ||
-                analysesResponse ||
-                [];
-
-            const safeMatches = Array.isArray(matchesData)
-                ? matchesData
-                : [];
-
-            const safeAnalyses = Array.isArray(analysesData)
-                ? analysesData
-                : [];
-
-            setMatches(safeMatches);
-            setAnalyses(safeAnalyses);
-
-            if (safeMatches.length > 0) {
-                const latestMatch = safeMatches[0];
-
-                const matchId =
-                    latestMatch.id ||
-                    latestMatch.match_result_id;
-
-                if (matchId) {
-                    setSelectedMatchId(String(matchId));
+        Promise.all([
+            getMyMatches(),
+            getMyAIAnalyses(),
+        ])
+            .then(([matchesResponse, analysesResponse]) => {
+                if (!isMounted) {
+                    return;
                 }
-            }
-        } catch (err) {
-            console.error(err);
 
-            setError(
-                err.response?.data?.message ||
-                "Unable to load AI analysis data."
-            );
-        } finally {
-            setLoading(false);
-        }
-    }
+                const matchesData =
+                    matchesResponse?.results ||
+                    matchesResponse?.data ||
+                    matchesResponse ||
+                    [];
+                const analysesData =
+                    analysesResponse?.results ||
+                    analysesResponse?.data ||
+                    analysesResponse ||
+                    [];
+                const safeMatches = Array.isArray(matchesData)
+                    ? matchesData
+                    : [];
+                const safeAnalyses = Array.isArray(analysesData)
+                    ? analysesData
+                    : [];
+
+                setMatches(safeMatches);
+                setAnalyses(safeAnalyses);
+
+                if (safeMatches.length > 0) {
+                    const latestMatch = safeMatches[0];
+                    const matchId =
+                        latestMatch.id ||
+                        latestMatch.match_result_id;
+
+                    if (matchId) {
+                        setSelectedMatchId(String(matchId));
+                    }
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+
+                if (isMounted) {
+                    setError(
+                        err.response?.data?.message ||
+                        "Unable to load AI analysis data."
+                    );
+                }
+            })
+            .finally(() => {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            });
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const selectedMatch = useMemo(() => {
         return matches.find(
@@ -173,11 +172,8 @@ function AIAnalysis() {
         });
     }, [analyses, selectedMatchId]);
 
+    const analysis = existingAnalysis || null;
     const skillGapItems = getSkillGapItems(analysis);
-
-    useEffect(() => {
-        setAnalysis(existingAnalysis || null);
-    }, [existingAnalysis]);
 
     async function handleGenerateAnalysis() {
         if (!selectedMatchId) {
@@ -201,8 +197,6 @@ function AIAnalysis() {
                 response?.data ||
                 response?.analysis ||
                 response;
-
-            setAnalysis(generatedAnalysis);
 
             setAnalyses((previous) => {
                 const filtered = previous.filter((item) => {

@@ -52,3 +52,26 @@ class JobSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
+
+    def validate_title(self, value):
+        title = value.strip()
+        if not title:
+            raise serializers.ValidationError(
+                "Job title cannot be blank."
+            )
+        return title
+
+    def validate_description(self, value):
+        description = value.strip()
+        if not description:
+            raise serializers.ValidationError(
+                "Job description cannot be blank."
+            )
+        return description
+
+    def validate_required_experience_years(self, value):
+        if value < 0:
+            raise serializers.ValidationError(
+                "Required experience cannot be negative."
+            )
+        return value

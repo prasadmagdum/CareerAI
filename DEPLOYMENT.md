@@ -61,11 +61,10 @@ keep `staticfiles/` as build output, not durable data. Resume uploads are
 stored on disk by default, so attach persistent storage or configure a private
 object-storage backend before using an ephemeral/container filesystem.
 
-The matching feature downloads the `all-MiniLM-L6-v2` Sentence Transformers
-model when it is first used; allow outbound access and enough disk/RAM, or
-pre-cache the model during image build. AI analysis and interview generation
-call Ollama; deploy it as a reachable service with the configured model already
-available. The Django API does not start Ollama itself.
+Resume-to-job similarity currently uses TF-IDF and does not download a model.
+AI analysis and interview generation call Ollama; deploy it as a reachable
+service with the configured model already available. The Django API does not
+start Ollama itself.
 
 ## Pre-release verification
 

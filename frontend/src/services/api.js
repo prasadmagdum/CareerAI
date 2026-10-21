@@ -32,7 +32,10 @@ api.interceptors.response.use(
 
     (error) => {
 
-        if (error.response?.status === 401) {
+        const requestUrl = error.config?.url || "";
+        const isTokenRequest = /\/auth\/token\/?$/.test(requestUrl);
+
+        if (error.response?.status === 401 && !isTokenRequest) {
 
             localStorage.removeItem(
                 "access_token"

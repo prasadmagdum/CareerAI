@@ -6,6 +6,18 @@ from .models import MatchResult
 class MatchResultSerializer(
     serializers.ModelSerializer
 ):
+    job_title = serializers.CharField(
+        source="job.title",
+        read_only=True,
+    )
+    company = serializers.CharField(
+        source="job.company",
+        read_only=True,
+    )
+    resume_title = serializers.CharField(
+        source="resume.title",
+        read_only=True,
+    )
 
     class Meta:
         model = MatchResult
@@ -13,7 +25,10 @@ class MatchResultSerializer(
         fields = [
             "id",
             "resume",
+            "resume_title",
             "job",
+            "job_title",
+            "company",
             "skill_match_score",
             "semantic_similarity_score",
             "experience_match_score",

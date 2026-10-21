@@ -1,5 +1,6 @@
 import logging
 
+from django.db import transaction
 from rest_framework import status
 from rest_framework.decorators import (
     api_view,
@@ -18,55 +19,36 @@ logger = logging.getLogger(__name__)
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def create_job(request):
-
-    title = request.data.get("title")
-    company = request.data.get("company", "")
-    location = request.data.get("location", "")
-    description = request.data.get("description")
-    required_experience_years = request.data.get(
-        "required_experience_years",
-        0
-    )
-
-    if not title:
+    serializer = JobSerializer(data=request.data)
+    if not serializer.is_valid():
         return Response(
             {
                 "success": False,
-                "message": "Job title is required."
-            },
-            status=status.HTTP_400_BAD_REQUEST
-        )
-
-    if not description:
-        return Response(
-            {
-                "success": False,
-                "message": "Job description is required."
+                "message": "Job details are invalid.",
+                "errors": serializer.errors,
             },
             status=status.HTTP_400_BAD_REQUEST
         )
 
     try:
-
+        description = serializer.validated_data["description"]
         analysis_data = analyze_job_description(description)
 
-        job = Job.objects.create(
-            user=request.user,
-            title=title,
-            company=company,
-            location=location,
-            description=description,
-            required_experience_years=required_experience_years,
-            extracted_text=description,
-        )
-
-        for skill in analysis_data["skills"]:
-
-            JobSkill.objects.create(
-                job=job,
-                name=skill["name"],
-                category=skill["category"],
-                importance=skill["importance"],
+        with transaction.atomic():
+            job = serializer.save(
+                user=request.user,
+                extracted_text=description,
+            )
+            JobSkill.objects.bulk_create(
+                [
+                    JobSkill(
+                        job=job,
+                        name=skill["name"],
+                        category=skill["category"],
+                        importance=skill["importance"],
+                    )
+                    for skill in analysis_data["skills"]
+                ]
             )
 
         serializer = JobSerializer(job)

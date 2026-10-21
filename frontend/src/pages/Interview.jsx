@@ -10,18 +10,15 @@ import {
 } from "../services/aiService";
 
 import QuestionCard from "../components/QuestionCard";
-import Layout from "../components/Layout";
 import LoadingState from "../components/LoadingState";
 import "./Interview.css";
 function Interview() {
 
     const [matches, setMatches] = useState([]);
+    const [preparations, setPreparations] = useState([]);
 
     const [selectedMatch, setSelectedMatch] =
         useState("");
-
-    const [preparation, setPreparation] =
-        useState(null);
 
     const [loading, setLoading] =
         useState(true);
@@ -33,59 +30,51 @@ function Interview() {
         useState("");
 
     useEffect(() => {
-        loadData();
+        let isMounted = true;
+
+        Promise.all([
+            getMyMatches(),
+            getMyInterviewPreparations(),
+        ])
+            .then(([matchesResponse, preparationResponse]) => {
+                if (!isMounted) {
+                    return;
+                }
+
+                const matchesData =
+                    matchesResponse.data ||
+                    matchesResponse.results ||
+                    matchesResponse;
+                const preparationData =
+                    preparationResponse.data ||
+                    preparationResponse.results ||
+                    preparationResponse;
+
+                setMatches(matchesData);
+
+                if (matchesData.length > 0) {
+                    setSelectedMatch(matchesData[0].id);
+                }
+
+                setPreparations(preparationData);
+            })
+            .catch((err) => {
+                console.error(err);
+
+                if (isMounted) {
+                    setError("Unable to load interview preparation.");
+                }
+            })
+            .finally(() => {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
-
-    async function loadData() {
-
-        try {
-
-            const [
-                matchesResponse,
-                preparationResponse,
-            ] = await Promise.all([
-                getMyMatches(),
-                getMyInterviewPreparations(),
-            ]);
-
-            const matchesData =
-                matchesResponse.data ||
-                matchesResponse.results ||
-                matchesResponse;
-
-            const preparationData =
-                preparationResponse.data ||
-                preparationResponse.results ||
-                preparationResponse;
-
-            setMatches(matchesData);
-
-            if (matchesData.length > 0) {
-                setSelectedMatch(
-                    matchesData[0].id
-                );
-            }
-
-            if (preparationData.length > 0) {
-
-                setPreparation(
-                    preparationData[0]
-                );
-            }
-
-        } catch (err) {
-
-            console.error(err);
-
-            setError(
-                "Unable to load interview preparation."
-            );
-
-        } finally {
-
-            setLoading(false);
-        }
-    }
 
     async function generatePreparation() {
 
@@ -100,7 +89,6 @@ function Interview() {
 
         setGenerating(true);
         setError("");
-        setPreparation(null);
 
         try {
 
@@ -112,7 +100,14 @@ function Interview() {
             const result =
                 response.data || response;
 
-            setPreparation(result);
+            setPreparations((previous) => [
+                result,
+                ...previous.filter(
+                    (item) =>
+                        String(item.match_result?.id || item.match_result) !==
+                        String(selectedMatch)
+                ),
+            ]);
 
         } catch (err) {
 
@@ -129,11 +124,15 @@ function Interview() {
         }
     }
 
+    const preparation = preparations.find(
+        (item) =>
+            String(item.match_result?.id || item.match_result) ===
+            String(selectedMatch)
+    ) || null;
+
     if (loading) {
         return (
-            <Layout>
-                <LoadingState message="Loading interview preparation..." />
-            </Layout>
+            <LoadingState message="Loading interview preparation..." />
         );
     }
 

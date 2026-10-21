@@ -67,80 +67,63 @@ function Jobs() {
 
 
     useEffect(() => {
-        loadData();
+        let isMounted = true;
+
+        Promise.all([
+            getMyJobs(),
+            getMyResumes(),
+            getMyMatches(),
+        ])
+            .then(([jobsResponse, resumesResponse, matchesResponse]) => {
+                if (!isMounted) {
+                    return;
+                }
+
+                const jobsData =
+                    jobsResponse?.results ||
+                    jobsResponse?.data ||
+                    jobsResponse ||
+                    [];
+                const resumesData =
+                    resumesResponse?.results ||
+                    resumesResponse?.data ||
+                    resumesResponse ||
+                    [];
+                const matchesData =
+                    matchesResponse?.results ||
+                    matchesResponse?.data ||
+                    matchesResponse ||
+                    [];
+
+                setJobs(jobsData);
+                setResumes(resumesData);
+                setMatches(matchesData);
+
+                if (resumesData.length > 0) {
+                    setSelectedResume(resumesData[0].id);
+                }
+
+                if (jobsData.length > 0) {
+                    setSelectedJob(jobsData[0].id);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+
+                if (isMounted) {
+                    setError("Unable to load jobs and resumes.");
+                }
+            })
+            .finally(() => {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
-
-
-    async function loadData() {
-
-        try {
-
-            setLoading(true);
-            setError("");
-
-            const [
-                jobsResponse,
-                resumesResponse,
-                matchesResponse,
-            ] = await Promise.all([
-                getMyJobs(),
-                getMyResumes(),
-                getMyMatches(),
-            ]);
-
-
-            const jobsData =
-                jobsResponse?.results ||
-                jobsResponse?.data ||
-                jobsResponse ||
-                [];
-
-
-            const resumesData =
-                resumesResponse?.results ||
-                resumesResponse?.data ||
-                resumesResponse ||
-                [];
-
-
-            const matchesData =
-                matchesResponse?.results ||
-                matchesResponse?.data ||
-                matchesResponse ||
-                [];
-
-
-            setJobs(jobsData);
-            setResumes(resumesData);
-            setMatches(matchesData);
-
-
-            if (resumesData.length > 0) {
-                setSelectedResume(
-                    resumesData[0].id
-                );
-            }
-
-            if (jobsData.length > 0) {
-                setSelectedJob(
-                    jobsData[0].id
-                );
-            }
-
-        } catch (error) {
-
-            console.error(error);
-
-            setError(
-                "Unable to load jobs and resumes."
-            );
-
-        } finally {
-
-            setLoading(false);
-
-        }
-    }
 
 
     async function handleCreateJob(event) {
