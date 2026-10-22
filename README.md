@@ -15,19 +15,13 @@ CareerAI analyzes resumes, matches candidates with job descriptions, identifies 
 ### Backend
 
 ```powershell
-Set-Location backend
-python -m pip install -r requirements.txt
-Copy-Item .env.example .env
-# Configure the database and SECRET_KEY in .env.
-python manage.py migrate
+
 python manage.py runserver
 ```
 
 ### Frontend
 
 ```powershell
-Set-Location frontend
-npm ci
 npm run dev
 ```
 
